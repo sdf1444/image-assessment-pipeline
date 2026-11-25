@@ -1,0 +1,20 @@
+services:
+  db:
+    image: mariadb:11.4
+    environment:
+      MARIADB_DATABASE: assessment
+      MARIADB_USER: assessment
+      MARIADB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in your environment}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Set DB_ROOT_PASSWORD in your environment}
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - assessment-db:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+volumes:
+  assessment-db:

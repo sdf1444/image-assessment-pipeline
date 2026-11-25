@@ -1,0 +1,12 @@
+{
+  "name": "image-assessment-pipeline",
+  "private": true,
+  "workspaces": ["backend", "frontend"],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspace backend",
+    "dev:api": "npm run dev:api --workspace backend",
+    "dev:worker": "npm run dev:worker --workspace backend",
+    "dev:web": "npm run dev --workspace frontend"
+  }
+}
